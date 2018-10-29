@@ -1,0 +1,24 @@
+nammaservice:
+  extends:
+    file: compose-services.yml
+    service: version
+
+nimmaservice:
+  extends: nammaservice
+  
+appium-selenium:
+  image: srinivas49/docker-test:0.1
+  privileged: true
+  container_name: docker-test5
+  ports:
+    - 4723:4723
+    
+java-maven2:
+  image: srinivasansekar/javamvn
+  container_name: javamvn2
+  volumes:
+    - ./:/home/docker-test/
+  working_dir: /home/docker-test/
+  command: mvn clean install
+  links:
+    - appium-selenium:java-maven2

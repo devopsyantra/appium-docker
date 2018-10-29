@@ -1,0 +1,43 @@
+# To execute this docker-compose yml file use `docker-compose -f <file_name> up`
+# Add the `-d` flag at the end for detached execution
+# To execute this docker-compose yml file use `docker-compose -f <file_name> up`
+# Add the `-d` flag at the end for detached execution
+version: "3.5"
+services:
+  selenium-hub:
+    image: selenium/hub
+    container_name: selenium-hub
+    ports:
+      - "4444:4444"
+  chrome:
+    image: selenium/node-chrome
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_PORT_4444_TCP_ADDR=selenium-hub
+      - HUB_PORT_4444_TCP_PORT=4444
+  chrome-debug:
+    image: selenium/node-chrome-debug
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_PORT_4444_TCP_ADDR=selenium-hub
+      - HUB_PORT_4444_TCP_PORT=4444
+      
+  selenium-maven-run:
+    image: srinivas49/docker-test:0.1
+    privileged: true
+    ports:
+      - "5039:5037"
+    depends_on:
+      - selenium-hub
+    links:
+      - selenium-hub
+    container_name: namproject
+    volumes:
+      - ./dev/bus/usb:/dev/bus/usb
+      - ./:/home
+    working_dir: /home/
+    command: adb devices
+    command: mvn clean install
+ 
