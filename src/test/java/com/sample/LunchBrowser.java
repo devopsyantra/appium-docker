@@ -16,10 +16,10 @@ public class LunchBrowser {
 		Capabilities.setCapability("automationName", "uiautomator2");
 		Capabilities.setCapability("platformName", "Android");
 		Capabilities.setCapability("platformVersion", "6.0.1");
-		Capabilities.setCapability("deviceName", "J7");
-		Capabilities.setCapability("UDID", "330068713012a203");
-		Capabilities.setCapability("appPackage", "com.the511plus.MultiTouchTester");
-		Capabilities.setCapability("appActivity", ".MultiTouchTester");
+		Capabilities.setCapability("deviceName", "Le 2");
+		//Capabilities.setCapability("UDID", "330068713012a203");
+		Capabilities.setCapability("appPackage", "com.android.calculator2");
+		Capabilities.setCapability("appActivity", "com.android.calculator2.Calculator");
 		AndroidDriver driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), Capabilities);
 		Thread.sleep(5000);
 
